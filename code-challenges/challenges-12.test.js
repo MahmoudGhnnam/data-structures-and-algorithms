@@ -10,14 +10,9 @@ E.g. [4,2,7,5,9,2] -> 9
 ------------------------------------------------------------------------------------------------ */
 const maxInArray = (arr) => {
   // Solution code here...
-  let highest = arr.reduce((soFar, val) => {
-    if(soFar<val){
-      soFar = val;
-    }
-    return soFar;
-  }, 0)
-  return highest;
-  };
+  return arr.reduce((acc,val)=>{
+    return Math.max(acc,val);
+  })
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -44,15 +39,17 @@ const cookieStores = [firstPike, seaTac, seattleCenter, capHill, alkiBeach];
 
 const grandTotal = (stores) => {
   // Solution code here...
-  let resultsArr = hoursOpen.map(hr => {
-    return 0;})
-  for(let i=0; i<stores.length; i++){
-    for(let j=0; j<stores[i].length; j++){
-      let thisStoreSalesThisHr = stores[i][j];
-      resultsArr[j] = resultsArr[j] + thisStoreSalesThisHr;
-    }
+  let arr=[];
+
+ for(var i=0 ; i<hoursOpen.length ;i++){
+  let sum =0;
+  for(var j=0 ; j<stores.length ;j++){
+  sum +=stores[j][i];
+
   }
-  return resultsArr;
+  arr.push(sum);
+ }
+return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -67,12 +64,13 @@ Write a function named salesData that uses forEach to iterate over the hourlySal
 
 const salesData = (hours, data) => {
   // Solution code here...
-  let finalArray = hours.reduce((soFar, val, index) => {
-    val = {sales: `${data[index]} cookies`, time: val};
-    soFar.push(val);
-    return soFar;
-  }, [])
-return finalArray;
+ 
+  let arr=[];
+  data.forEach((element,i) => {
+
+  arr.push({'sales':element+' cookies','time':hours[i]});
+  });
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -98,16 +96,18 @@ const errands = [
 
 const howManyTreats = (arr) => {
   // Solution code here...
-  let treatCounter = 0;
-  for(let i=0; i<arr.length; i++){
-    let thisArray = arr[i].items;
-    for(let j=0; j<arr[i].items.length; j++){
-      if(thisArray[j].name === 'Treats'){
-        treatCounter = treatCounter + thisArray[j].quantity;
-      }
+  let result=0;
+  arr.forEach(e=>{
+    if(e.store=='Pet store'){
+     e.items.map(item=>{
+        if(item.name=='Treats'){
+         result=item.quantity;
+   
+        }
+      })
     }
-  }
-  return treatCounter;
+  })
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
